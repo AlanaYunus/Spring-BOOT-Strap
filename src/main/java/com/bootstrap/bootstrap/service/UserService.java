@@ -2,7 +2,6 @@ package com.bootstrap.bootstrap.service;
 
 import com.bootstrap.bootstrap.DAO.UserDao;
 import com.bootstrap.bootstrap.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

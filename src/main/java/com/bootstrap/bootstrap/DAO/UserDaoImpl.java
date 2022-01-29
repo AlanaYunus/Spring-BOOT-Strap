@@ -1,7 +1,6 @@
 package com.bootstrap.bootstrap.DAO;
 
 import com.bootstrap.bootstrap.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 

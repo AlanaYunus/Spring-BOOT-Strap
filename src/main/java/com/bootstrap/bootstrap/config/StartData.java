@@ -4,7 +4,6 @@ import com.bootstrap.bootstrap.model.Role;
 import com.bootstrap.bootstrap.model.User;
 import com.bootstrap.bootstrap.service.RoleService;
 import com.bootstrap.bootstrap.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
