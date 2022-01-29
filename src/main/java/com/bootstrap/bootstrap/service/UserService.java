@@ -1,69 +1,57 @@
 package com.bootstrap.bootstrap.service;
 
+import com.bootstrap.bootstrap.DAO.UserDao;
 import com.bootstrap.bootstrap.model.User;
-import com.bootstrap.bootstrap.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+   private UserDao userDao;
 
-    @Autowired
-    private RoleService roleService;
-
-    @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    @Autowired
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+   public UserService(UserDao userDao) {
+        this.userDao = userDao;
     }
 
+    @Transactional
+    public void createUser(User user) {
+        userDao.createUser(user);
+    }
+
+    @Transactional
     public User readUser(Long id) {
-        return userRepository.getOne(id);
+        return userDao.readUser(id);
     }
 
-    public List<User> allUsers() {
-        return userRepository.findAll();
+    @Transactional
+    public void updateUser(User user) {
+        userDao.updateUser(user);
     }
 
-    public User createUser(User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setRoles(roleService.setRole(user.getRoleInd()));
-        return userRepository.save(user);
-    }
-
-    public User updateUser(User user) {
-        User userOld = userRepository.getById(user.getId());
-        user.setRoles(roleService.setRole(user.getRoleInd()));
-        if (user.getPassword().equals(userOld.getPassword())) {
-            return userRepository.save(user);
-        } else {
-            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-            return userRepository.save(user);
-        }
-    }
-
+    @Transactional
     public void deleteUser(Long id) {
-        userRepository.deleteById(id);
+        userDao.deleteUser(id);
     }
 
-    public Optional<User> getUserByName(String name) {
-        return userRepository.findByName(name);
+    @Transactional
+    public User getUserByName(String name) {
+        return userDao.getUserByName(name);
     }
 
+    @Transactional
+    public List<User> allUsers() {
+        return userDao.allUsers();
+    }
+
+    @Transactional
     public boolean isAllowed(Long id, Principal principal) {
-        User user = getUserByName(principal.getName()).get();
-        return user.getId() == id || user.getAuthorities().stream()
-                .anyMatch(role -> role.getAuthority().contains("ADMIN"));
+        return userDao.isAllowed(id, principal);
     }
+
 }
 

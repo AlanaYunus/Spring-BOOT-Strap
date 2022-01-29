@@ -15,11 +15,13 @@ import java.util.Set;
 @Component
 public class StartData {
 
-    @Autowired
     private UserService userService;
-
-    @Autowired
     private RoleService roleService;
+
+    public StartData(UserService userService, RoleService roleService) {
+        this.userService = userService;
+        this.roleService = roleService;
+    }
 
     @PostConstruct
     private void postConstruct() {

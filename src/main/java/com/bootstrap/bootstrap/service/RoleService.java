@@ -1,46 +1,38 @@
 package com.bootstrap.bootstrap.service;
 
+import com.bootstrap.bootstrap.DAO.RoleDao;
 import com.bootstrap.bootstrap.model.Role;
-import com.bootstrap.bootstrap.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @Service
-public class RoleService {
+public class RoleService{
 
-    private final RoleRepository roleRepository;
+    private RoleDao roleDao;
 
-    @Autowired
-    public RoleService(RoleRepository roleRepository) {
-        this.roleRepository = roleRepository;
+    public RoleService(RoleDao roleDao) {
+        this.roleDao = roleDao;
     }
 
+    @Transactional
     public List<Role> allRoles() {
-        return roleRepository.findAll();
+        return roleDao.allRoles();
     }
 
-    public Role saveRole(Role role) {
-        return roleRepository.save(role);
-    }
+    @Transactional
+    public void saveRole(Role role) { roleDao.saveRole(role);}
 
-    public Role getRole(Long id) {
-        return roleRepository.getOne(id);
-    }
+    @Transactional
+    public Role getRole(Long id) {return roleDao.getRole(id);}
+
 
     public Set<Role> setRole(Long index) {
-        Set<Role> rolesSet = new HashSet<>();
-        if (index == 1) {
-            rolesSet.add(getRole(1L));
-        } else if (index == 2) {
-            rolesSet.add(getRole(2L));
-        } else if (index == 3) {
-            rolesSet.add(getRole(1L));
-            rolesSet.add(getRole(2L));
-        }
-        return rolesSet;
+        return roleDao.setRole(index);
     }
+
+
 }
