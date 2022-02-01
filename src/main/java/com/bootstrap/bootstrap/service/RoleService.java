@@ -1,37 +1,19 @@
 package com.bootstrap.bootstrap.service;
 
-import com.bootstrap.bootstrap.DAO.RoleDao;
 import com.bootstrap.bootstrap.model.Role;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Set;
 
-@Service
-public class RoleService{
+public interface RoleService {
 
-    private RoleDao roleDao;
+    public List<Role> allRoles();
 
-    public RoleService(RoleDao roleDao) {
-        this.roleDao = roleDao;
-    }
+    public void saveRole(Role role);
 
-    @Transactional
-    public List<Role> allRoles() {
-        return roleDao.allRoles();
-    }
+    public Role getRole(Long id);
 
-    @Transactional
-    public void saveRole(Role role) { roleDao.saveRole(role);}
-
-    @Transactional
-    public Role getRole(Long id) {return roleDao.getRole(id);}
-
-
-    public Set<Role> setRole(Long index) {
-        return roleDao.setRole(index);
-    }
-
+    public Set<Role> setRole(Long index);
 
 }
+

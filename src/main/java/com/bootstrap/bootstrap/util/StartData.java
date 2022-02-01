@@ -1,9 +1,9 @@
-package com.bootstrap.bootstrap.config;
+package com.bootstrap.bootstrap.util;
 
 import com.bootstrap.bootstrap.model.Role;
 import com.bootstrap.bootstrap.model.User;
-import com.bootstrap.bootstrap.service.RoleService;
-import com.bootstrap.bootstrap.service.UserService;
+import com.bootstrap.bootstrap.service.RoleServiceImpl;
+import com.bootstrap.bootstrap.service.UserServiceImpl;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -14,10 +14,10 @@ import java.util.Set;
 @Component
 public class StartData {
 
-    private UserService userService;
-    private RoleService roleService;
+    private UserServiceImpl userService;
+    private RoleServiceImpl roleService;
 
-    public StartData(UserService userService, RoleService roleService) {
+    public StartData(UserServiceImpl userService, RoleServiceImpl roleService) {
         this.userService = userService;
         this.roleService = roleService;
     }

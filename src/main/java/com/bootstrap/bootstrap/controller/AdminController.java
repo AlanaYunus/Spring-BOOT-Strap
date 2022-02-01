@@ -1,8 +1,7 @@
 package com.bootstrap.bootstrap.controller;
 
 import com.bootstrap.bootstrap.model.User;
-import com.bootstrap.bootstrap.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.bootstrap.bootstrap.service.UserServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +12,9 @@ import java.security.Principal;
 @RequestMapping(value = "/")
 public class AdminController {
 
-    private UserService service;
+    private UserServiceImpl service;
 
-    @Autowired
-    public AdminController(UserService service) {
+    public AdminController(UserServiceImpl service) {
         this.service = service;
     }
 
@@ -50,5 +48,11 @@ public class AdminController {
     public String delete(@ModelAttribute("user") User user) {
         service.deleteUser(user.getId());
         return "redirect:/admin/adminPanel";
+    }
+
+    @GetMapping("/admin/adminNew")
+    public String newUser(Model model) {
+        model.addAttribute("user", new User());
+        return "/admin/adminNew";
     }
 }

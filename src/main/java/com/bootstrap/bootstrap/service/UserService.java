@@ -1,56 +1,24 @@
 package com.bootstrap.bootstrap.service;
 
-import com.bootstrap.bootstrap.DAO.UserDao;
 import com.bootstrap.bootstrap.model.User;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
 import java.util.List;
 
-@Service
-public class UserService {
+public interface UserService {
 
-   private UserDao userDao;
+    public void createUser(User user);
 
-   public UserService(UserDao userDao) {
-        this.userDao = userDao;
-    }
+    public User readUser(Long id);
 
-    @Transactional
-    public void createUser(User user) {
-        userDao.createUser(user);
-    }
+    public void updateUser(User user);
 
-    @Transactional
-    public User readUser(Long id) {
-        return userDao.readUser(id);
-    }
+    public void deleteUser(Long id);
 
-    @Transactional
-    public void updateUser(User user) {
-        userDao.updateUser(user);
-    }
+    public User getUserByName(String name);
 
-    @Transactional
-    public void deleteUser(Long id) {
-        userDao.deleteUser(id);
-    }
+    public List<User> allUsers();
 
-    @Transactional
-    public User getUserByName(String name) {
-        return userDao.getUserByName(name);
-    }
-
-    @Transactional
-    public List<User> allUsers() {
-        return userDao.allUsers();
-    }
-
-    @Transactional
-    public boolean isAllowed(Long id, Principal principal) {
-        return userDao.isAllowed(id, principal);
-    }
+    public boolean isAllowed(Long id, Principal principal);
 
 }
-
